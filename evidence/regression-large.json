@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "prompt_count": 10,
+  "logit_steps": 1920,
+  "free_runs": 60,
+  "all_step_bytes_equal": true,
+  "all_free_tokens_equal": true,
+  "legacy_shared_label": "shared_s2"
+}

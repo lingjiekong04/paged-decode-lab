@@ -1,0 +1,10 @@
+{
+  "pages": 10,
+  "embedded_cjk_fonts": [
+    "/AAAAAA+SimHei",
+    "/AAAAAB+SimHei",
+    "/AAAAAC+SimHei"
+  ],
+  "visual_review": "all 10 pages reviewed; v2 changes only page6; no clipping/overlap observed",
+  "pdf_sha256": "44b9c09a591784510f8b425d400d30f2c14daa839a2e23851a083c4532ffff21"
+}

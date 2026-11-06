@@ -1,0 +1,194 @@
+{
+  "policy": "public artifacts are derived data, not raw evidence",
+  "outputs": [
+    {
+      "public_path": "evidence/operator.json",
+      "public_sha256": "b4fc6bd86c11085f93c36c81a6ac6ce020d0fed13e6e2485a504275649be6b6b",
+      "rule": "allow-list timing rows, numerical gate and compiler resource fields; discard host metadata",
+      "source_path": "remote-project/results/smem2-operator-v1/summary.json",
+      "source_sha256": "19312d56b5c6d6ab8c45e6765c8a22f3efba565fa63a592939752e5052255691"
+    },
+    {
+      "public_path": "evidence/model-small.json",
+      "public_sha256": "eb5bc6ab6f88ec079a992f856372819e00cc699b770b40ffa65ef868c3bbf5f0",
+      "rule": "allow-list timing, byte comparison and resources; remove model paths, host monitors and invocation metadata",
+      "source_path": "remote-project/results/smem2-perf-small-v1/summary.json",
+      "source_sha256": "6a1bde80310b7910beeddeac0a0a45ac38695fc054de9a1c8c54407cb2a7e055"
+    },
+    {
+      "public_path": "evidence/regression-small.json",
+      "public_sha256": "52e951a0a9616829efd923e5cbd247f634635479a97c4256354ca5023d5aaa3c",
+      "rule": "aggregate counts and boolean gates only; remove input IDs, generated text and individual logits digests",
+      "source_path": "remote-project/results/smem2-model-small-v1/summary.json",
+      "source_sha256": "27b848fde59ca5d1a54fd8ef4b96f7f5f20e6a97bf76a0a5150b2b3e9c39cf57"
+    },
+    {
+      "public_path": "evidence/model-large.json",
+      "public_sha256": "8ad0a1e14fa4a0a860f2da23ebf72f6666718345597400d03f1845b9104978ac",
+      "rule": "allow-list timing, byte comparison and resources; remove model paths, host monitors and invocation metadata",
+      "source_path": "remote-project/results/smem2-perf-large-v1/summary.json",
+      "source_sha256": "5264adde8aed12df40a423323c3ff853b951a721651e3a6d6acb56c64a8a0766"
+    },
+    {
+      "public_path": "evidence/regression-large.json",
+      "public_sha256": "52e951a0a9616829efd923e5cbd247f634635479a97c4256354ca5023d5aaa3c",
+      "rule": "aggregate counts and boolean gates only; remove input IDs, generated text and individual logits digests",
+      "source_path": "remote-project/results/smem2-model-large-v1/summary.json",
+      "source_sha256": "f12beafe7673f025b625c9554fa249fc2035cf5cac01e0834d6090af3e32c8e9"
+    },
+    {
+      "public_path": "evidence/correctness.json",
+      "public_sha256": "35da12bfdff8299b8d196906a45da5bf85d16a23c4667361be5eec025e61170d",
+      "rule": "retain numerical checks and resources except compiler metadata strings containing private filesystem paths",
+      "source_path": "remote-project/results/smem2-correct-v1/summary.json",
+      "source_sha256": "029d15f0d7c89565426027f209177c7bc9c2728b62fc6accdc15ae5fdae73d68"
+    },
+    {
+      "public_path": "evidence/summary.json",
+      "public_sha256": "993a37aa58593f8fc37180816088b1c5101fa4ba929f85c058e7815b15c914b2",
+      "rule": "recomputed by frozen operator_summary/model_summary from public allow-listed evidence"
+    }
+  ],
+  "private_not_distributed": [
+    "raw logs",
+    "GPU UUID/host PID monitors",
+    "generated responses",
+    "model activation snapshots",
+    "compiled binaries",
+    "historical full archives"
+  ],
+  "historical_reports": [
+    {
+      "path": "docs/ALGORITHM.md",
+      "sha256": "939a57ded67c11ca9b05320dc35aabf0b124c76fa79c0f53b3b86ee275427aa5"
+    },
+    {
+      "path": "docs/DECODE_WALKTHROUGH.md",
+      "sha256": "7e95db05e9ee742f73edc254a6d26d21d8d83efd36f447222ccf03f40d1b2f6e"
+    },
+    {
+      "path": "docs/INTERVIEW.md",
+      "sha256": "6a06cbe85f9fcee939418dbb0055fa4df5107d0050dfaf4f088ad7a242b9ec62"
+    },
+    {
+      "path": "docs/LEARNING_PATH.md",
+      "sha256": "2175937ab33a5f9b833766cb9782cce5669cb5bef76f9122e5095ccdcfcdd0e6"
+    },
+    {
+      "path": "docs/MATCHED_SPLITKV.md",
+      "sha256": "a159a2f3cdefdb430879aec202ed6741650e26cfd30861addb18c87ed2cd6c15"
+    },
+    {
+      "path": "docs/NANO_VLLM_LEGACY.md",
+      "sha256": "d8ad05cb15f26eb6942c39df1d6483a77ed23add3e29e354562f1424bcb15bfe"
+    },
+    {
+      "path": "docs/NUMERICAL_DIAGNOSIS.md",
+      "sha256": "83fd0c6e881201736049e7fa79dd50071c104267491da1e403cb948b8f50462d"
+    },
+    {
+      "path": "docs/PRECISION_COMPATIBILITY.md",
+      "sha256": "f06c4d6c21801be6bac3c1f3cfa1dc934b06a098c70baab491a28d211cd8fcea"
+    },
+    {
+      "path": "docs/PROJECT_DEFENSE.md",
+      "sha256": "a7ecfa0add7d71ceb771bf77728a687c9c741fe34cf5254ffd0d0683c8cee50e"
+    },
+    {
+      "path": "docs/QWEN35.md",
+      "sha256": "3b2f072642f6c4eb95cafe7fdb1a7cedde14bde1ed61e8be98705c5a789640ad"
+    },
+    {
+      "path": "docs/TC_SPLITK_AND_LONG_CONTEXT.md",
+      "sha256": "98887b9e7fac9b0750c562e5c341fa38428c43b21b84938a29854c230d5b48f9"
+    },
+    {
+      "path": "docs/benchmark-v2/PILOT.md",
+      "sha256": "b2d2b33964ffccb74eb0f2a332366f1e5d9f1d808113b9afed62b28b424fc1cd"
+    },
+    {
+      "path": "docs/benchmark-v2/RESULTS.md",
+      "sha256": "2924796972e882d43a617e0d0b7b0540e763306874e63426a000b42c63104df6"
+    },
+    {
+      "path": "docs/clean-repro/RESULTS.md",
+      "sha256": "0405f558540fc2a096570505efb6342ff943b468a0fe8a84c0ef96e7acd578fa"
+    },
+    {
+      "path": "docs/compiler-ir/EVIDENCE.md",
+      "sha256": "ed3e8d2c49fcd473c121ae89aad7bbc6af9bbbd3ad264b49e5cb4887c6e96fb9"
+    },
+    {
+      "path": "docs/compiler-ir/RESULTS.md",
+      "sha256": "6d658794b03f48e14ee7e3b619839a044bed2a3903cd2069a2563da87b6b58e9"
+    },
+    {
+      "path": "docs/denominator/RESULTS.md",
+      "sha256": "67bfb835264585002748772672b9f7ab261f168c4263d750e91922f3c1a75202"
+    },
+    {
+      "path": "docs/experiment/RESULTS.md",
+      "sha256": "62dbb6689048c5ba1089c32d0a7cdd256d31aba180f281eb8a7507350df46a9c"
+    },
+    {
+      "path": "docs/formal-entry/RESULTS.md",
+      "sha256": "f25e8fc84d99d2298a9204b8d9321592388ba985530ef99d8b4f095d2296c166"
+    },
+    {
+      "path": "docs/fragment-d256/RESULTS.md",
+      "sha256": "2adbda579e467e6d24c4b08cd62d54019703cd3c0ea2ad7a175287d69afa27ef"
+    },
+    {
+      "path": "docs/fragment-micro/RESULTS.md",
+      "sha256": "7e369c9bc4a22534fab34402ca7af8530d63d6f1e5f65950e66b51d550dfac32"
+    },
+    {
+      "path": "docs/fragment-model-performance/RESULTS.md",
+      "sha256": "9faaa21979dfc9e9b774cb2b7911a7d878fbdcc13dff7dbfe82d630c27765088"
+    },
+    {
+      "path": "docs/fragment-model-stages/RESULTS.md",
+      "sha256": "80e839f9674af45bb000d63fbaa3ff3ac9cbc452e48351e6bb13b5c6dd948b7e"
+    },
+    {
+      "path": "docs/fragment-partition/RESULTS.md",
+      "sha256": "15a5320a4f71613a23ae1ca4ac6cd4575e0950d221d0bc0d24b995fc34efa7b9"
+    },
+    {
+      "path": "docs/late-v/RESULTS.md",
+      "sha256": "7956fbfc1f19ea9f9dbe757e50db11db9a7a7133c035a177b172ad49c52f59e9"
+    },
+    {
+      "path": "docs/matched-performance/RESULTS.md",
+      "sha256": "df633ce347f0ebd5c899e9de54274c9aeea812d05fcc9074750c320f56f7440b"
+    },
+    {
+      "path": "docs/matched-results/RESULTS.md",
+      "sha256": "4be05a3d7d52c5b3b24dbdefe92ae82c82876357832fd3442f2ab6eca656181a"
+    },
+    {
+      "path": "docs/partition-residency/RESULTS.md",
+      "sha256": "2a1a6ef44e0bf8b910c81de601e63b09619fb9d69af92b6726d62e794457fce0"
+    },
+    {
+      "path": "docs/resident-pipeline/RESULTS.md",
+      "sha256": "83a2c54a1a98e0766e60501e7b13275b29ac366d79771b17ef119f6295b7e6d1"
+    },
+    {
+      "path": "docs/short-overhead/RESULTS.md",
+      "sha256": "cd2645859f9aa8c25089ae2a1b247f405295d6f489046383365e298d8813c58a"
+    },
+    {
+      "path": "docs/small-d/RESULTS.md",
+      "sha256": "ffc5f5dd5ed4c006d90b78da557da6a6da487d61059e87e867e25e507c26c03f"
+    },
+    {
+      "path": "docs/tcsplit-results/RESULTS.md",
+      "sha256": "fe4cbc4454a1e4d64fcb94f0ad14fede643d0881db7284e5200f35b6f5501196"
+    },
+    {
+      "path": "docs/warp-ablation/RESULTS.md",
+      "sha256": "8137fab1d284be89b79084013d039ab137cdf62abe138e40e9560980f7daddb3"
+    }
+  ]
+}

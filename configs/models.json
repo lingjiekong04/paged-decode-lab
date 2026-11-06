@@ -1,0 +1,39 @@
+{
+  "small": {
+    "repo_id": "Qwen/Qwen3.5-0.8B",
+    "revision": "2fc06364715b967f1860aea9cf38778875588b17",
+    "weights": [
+      {
+        "name": "model.safetensors-00001-of-00001.safetensors",
+        "bytes": 1746942600,
+        "sha256": "04b1c301231dd422b8860db31311ab2721511346a32cb1e079c4c4e5f1fe4696"
+      }
+    ]
+  },
+  "large": {
+    "repo_id": "Qwen/Qwen3.5-9B",
+    "revision": "c202236235762e1c871ad0ccb60c8ee5ba337b9a",
+    "weights": [
+      {
+        "name": "model.safetensors-00001-of-00004.safetensors",
+        "bytes": 5276436216,
+        "sha256": "db6f444b43d318c92f360a13a25561a6a65b10c0631b8ed305a426dbaa6c380e"
+      },
+      {
+        "name": "model.safetensors-00002-of-00004.safetensors",
+        "bytes": 5335161512,
+        "sha256": "31c7d7e2dd5d207840b31cc59083c8f4c4718959149e0358c0364052bb9a0330"
+      },
+      {
+        "name": "model.safetensors-00003-of-00004.safetensors",
+        "bytes": 5368717440,
+        "sha256": "7ec36ba3a4176a44c3c0876ad80c56a2f70c84bf008d82e9501df642f17dadec"
+      },
+      {
+        "name": "model.safetensors-00004-of-00004.safetensors",
+        "bytes": 3325995712,
+        "sha256": "b62b0c4cd7e44edee103ee8f4fe225f246d5e768e07bfd5f25b63a8aa1fdd0c6"
+      }
+    ]
+  }
+}

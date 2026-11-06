@@ -1,0 +1,164 @@
+{
+  "repository": "https://github.com/GeeeekExplorer/nano-vllm",
+  "commit": "bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+  "archive_url": "https://codeload.github.com/GeeeekExplorer/nano-vllm/zip/bb823b3e06983d71485a8e1f23715ebd87d98ef8",
+  "archive_sha256": "8122b4981d58aa72be3fe30181e8cccf1f3aeeb6a5f2df833520d4a0c22a1a96",
+  "files": [
+    {
+      "path": ".gitignore",
+      "upstream_sha256": "67436d964d7d1f969f48139317fe63262935e38e29099be3be1d876041895d6e",
+      "delivered_sha256": "67436d964d7d1f969f48139317fe63262935e38e29099be3be1d876041895d6e",
+      "modified": false
+    },
+    {
+      "path": "assets/logo.png",
+      "upstream_sha256": "03ec4039dc248e97e9943694d3ccfb52c1a73a6dab94c4cd6fd4288e08de98c8",
+      "delivered_sha256": "03ec4039dc248e97e9943694d3ccfb52c1a73a6dab94c4cd6fd4288e08de98c8",
+      "modified": false
+    },
+    {
+      "path": "bench.py",
+      "upstream_sha256": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+      "delivered_sha256": "42da1e51128ad0746a55be3ac3121268a343dd88d95687d9c2242e9dd3f85af6",
+      "modified": false
+    },
+    {
+      "path": "example.py",
+      "upstream_sha256": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+      "delivered_sha256": "5c0dca3d548a6cb28cc2168e8d79522f2c49f0f3716735461cdd01354c07cce0",
+      "modified": false
+    },
+    {
+      "path": "LICENSE",
+      "upstream_sha256": "97648cbc67d6ed6a68ebc6a31b06c0741ff73a2abb13cc18abffd81f26cd5dd4",
+      "delivered_sha256": "97648cbc67d6ed6a68ebc6a31b06c0741ff73a2abb13cc18abffd81f26cd5dd4",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/__init__.py",
+      "upstream_sha256": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+      "delivered_sha256": "42996c92a5c18d1e333eb57c7d670b2eac53b132df81d53cc6286a89125c9d77",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/config.py",
+      "upstream_sha256": "bca5fddf17092e26d14075348965e46a3b707f5ad780b04b31f48e91bd38e98c",
+      "delivered_sha256": "bf5de1287b76dc9d6272b1208234a96ef1f809e05378ec6ad35ec9d60dce9dfa",
+      "modified": true
+    },
+    {
+      "path": "nanovllm/engine/block_manager.py",
+      "upstream_sha256": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+      "delivered_sha256": "d0240374f589eaa85c4c7923b8970f2635ab7bc73adc5044fa2d273955b54242",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/engine/llm_engine.py",
+      "upstream_sha256": "c8132cd9f5e66faeea51d0ed6a64d7f4fd8ec5a5823dc2505c2aee51ba049aa1",
+      "delivered_sha256": "6f4f6632a571539771075c982dfed664dcc66bf92f4cd4b4f8faa931ee3541b3",
+      "modified": true
+    },
+    {
+      "path": "nanovllm/engine/model_runner.py",
+      "upstream_sha256": "2373c9daad7de3956905c9a0ec9d6b2e0a8d355a209162de8570507c5f419fd7",
+      "delivered_sha256": "0d1fdc56a8c7b74631776f96c1be9e1a2b901502b8bf02b66fb1aebd3354f6f6",
+      "modified": true
+    },
+    {
+      "path": "nanovllm/engine/scheduler.py",
+      "upstream_sha256": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+      "delivered_sha256": "e7302942c967d50bb525384fa4a6e0de988d199490479d4f5965d4211bcdbd08",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/engine/sequence.py",
+      "upstream_sha256": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+      "delivered_sha256": "d5bb5c522d22554b5c36de745150ec8b601827ee0388058404dcceef1ae8290d",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/layers/activation.py",
+      "upstream_sha256": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+      "delivered_sha256": "9dca7e6fae963ecb9d9d582b539d1c18e47825e103dac8c04058d6def8924c64",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/layers/attention.py",
+      "upstream_sha256": "00c2f52cd428bc2f82ff90ef8cbc96b0959a225daaeb035e9e0eaf63a85bfbba",
+      "delivered_sha256": "65848a81d8e58a3072f579288bd2830e1e65ad86d6a5e5f8e3f6c7f625d77f60",
+      "modified": true
+    },
+    {
+      "path": "nanovllm/layers/embed_head.py",
+      "upstream_sha256": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+      "delivered_sha256": "e823fbd0a1eb9d64a90e93ade7d32f32235f0039bafc97d367d92a8ee06b3d0f",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/layers/layernorm.py",
+      "upstream_sha256": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+      "delivered_sha256": "a661fc4eeef736f29308c736da7d91cbc9d896d662c990a3f887dc6f6c8d7169",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/layers/linear.py",
+      "upstream_sha256": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+      "delivered_sha256": "9fe0d9917e15603d4af435591ba8b4c5f45b253ee1a825607061ca73d50470cf",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/layers/rotary_embedding.py",
+      "upstream_sha256": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+      "delivered_sha256": "82b59b6a5d32e3465c4c9207e690a7e9b5c38219357f1920fa05ff81f7ae3836",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/layers/sampler.py",
+      "upstream_sha256": "63a342a4ec02e846d5872d2906dc25ef5af1b7d66b85a63a6a88668f23543050",
+      "delivered_sha256": "fe6e6c2b71b4ee93cb1c96ed71638ed2e96ba9e8ff9156f29f123a2e510ff2e5",
+      "modified": true
+    },
+    {
+      "path": "nanovllm/llm.py",
+      "upstream_sha256": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+      "delivered_sha256": "ffe74fe7f64ba5169471a17596757b8d8f309e75f4db7040ac41b84db2e38179",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/models/qwen3.py",
+      "upstream_sha256": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+      "delivered_sha256": "6156b3477117094f657a6f609df3c051393a23cce1405af6b88dafddb49acd29",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/sampling_params.py",
+      "upstream_sha256": "1e5146d1a06f5230ab049df1ea24814a1d73ba52c3ad22af04bd0f1c6293e0c0",
+      "delivered_sha256": "1afae29d3df81e1cbca47bb519ad766603dc4a15a635c80ef013b24154718b97",
+      "modified": true
+    },
+    {
+      "path": "nanovllm/utils/context.py",
+      "upstream_sha256": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+      "delivered_sha256": "83a608397c38cf22216dabba9e73b41cf985cf64c7a7f35c5c14e223fcd09959",
+      "modified": false
+    },
+    {
+      "path": "nanovllm/utils/loader.py",
+      "upstream_sha256": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99",
+      "delivered_sha256": "29d4b6c38a8356ad31f8858b1a14e893d7703cd3d5e32f86b0dc9ab3fb866e99",
+      "modified": false
+    },
+    {
+      "path": "pyproject.toml",
+      "upstream_sha256": "8afa73265bf3ce20da736c7d0630b6acc582512be84a527a011bd794b5c1f7d2",
+      "delivered_sha256": "8afa73265bf3ce20da736c7d0630b6acc582512be84a527a011bd794b5c1f7d2",
+      "modified": false
+    },
+    {
+      "path": "README.md",
+      "upstream_sha256": "b6c5181482d451580c71688f5d8b48a50c05341d81695ed8a01962abd09ba486",
+      "delivered_sha256": "b6c5181482d451580c71688f5d8b48a50c05341d81695ed8a01962abd09ba486",
+      "modified": false
+    }
+  ]
+}

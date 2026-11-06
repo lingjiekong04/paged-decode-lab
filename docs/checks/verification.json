@@ -1,0 +1,21 @@
+{
+  "date": "2026-11-06",
+  "remote_review_files": 725,
+  "remote_review_hash_verified": true,
+  "remote_recheck_changed": [],
+  "upstream_archive_sha256": "8122b4981d58aa72be3fe30181e8cccf1f3aeeb6a5f2df833520d4a0c22a1a96",
+  "reconstructed_upstream_files": 26,
+  "overlay_files": 6,
+  "frozen_patch_context_check": true,
+  "cpu_tests": 176,
+  "cpu_seconds": 2.02,
+  "synthetic_demo_max_abs": 1.043081283569336e-07,
+  "operator_timing_rows_recomputed": 480,
+  "model_timing_rows_recomputed": 160,
+  "powershell_syntax": "passed",
+  "gpu_executed_this_release": false,
+  "github_actions_run": false,
+  "github_upload_executed": false,
+  "initial_cpu_attempt": "165 passed, 11 setup errors: Windows temporary root deletion; new release runner fixed; inherited tests and source unchanged",
+  "artifact_font_note": "CJK TTF subset embedded; system font not separately distributed"
+}

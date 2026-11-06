@@ -1,0 +1,10 @@
+# Linux CPython 3.11, Ampere, CUDA 12.4 direct dependency targets.
+# Full actual environment is recorded by doctor/freeze after validation.
+torch==2.6.0
+triton==3.2.0
+transformers==4.57.1
+flash-attn==2.7.4.post1
+xxhash==3.6.0
+pytest==8.4.2
+numpy>=1.24
+matplotlib>=3.8

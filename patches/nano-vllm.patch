@@ -1,0 +1,168 @@
+--- a/nanovllm/config.py
++++ b/nanovllm/config.py
+@@ -12,14 +12,32 @@
+     gpu_memory_utilization: float = 0.9
+     tensor_parallel_size: int = 1
+     enforce_eager: bool = False
++    decode_backend: str = "flash_attn"
++    # Exact KV pool for controlled experiments; None retains upstream sizing.
++    kv_cache_blocks: int | None = None
++    record_decode_timings: bool = False
+     hf_config: AutoConfig | None = None
+     eos: int = -1
+     kvcache_block_size: int = 256
+     num_kvcache_blocks: int = -1
+ 
+     def __post_init__(self):
++        from paged_decode.spec import validate_engine_options
++        validate_engine_options(self.decode_backend, self.tensor_parallel_size,
++                                self.kvcache_block_size, self.max_num_seqs, self.max_model_len)
++        if self.kv_cache_blocks is not None and self.kv_cache_blocks <= 0:
++            raise ValueError("kv_cache_blocks must be positive")
+         assert os.path.isdir(self.model)
+         assert self.kvcache_block_size % 256 == 0
+         assert 1 <= self.tensor_parallel_size <= 8
+         self.hf_config = AutoConfig.from_pretrained(self.model)
+         self.max_model_len = min(self.max_model_len, self.hf_config.max_position_embeddings)
++        if self.decode_backend != "flash_attn":
++            from paged_decode.spec import DecodeSpec
++            if self.hf_config.model_type != "qwen3":
++                raise ValueError("custom engine integration supports dense Qwen3 only")
++            if self.hf_config.dtype not in ("bfloat16", __import__("torch").bfloat16):
++                raise ValueError("custom engine integration requires BF16 weights")
++            DecodeSpec(self.max_num_seqs, self.hf_config.num_attention_heads,
++                       self.hf_config.num_key_value_heads, self.hf_config.head_dim,
++                       self.max_model_len, self.kvcache_block_size)
+--- a/nanovllm/engine/llm_engine.py
++++ b/nanovllm/engine/llm_engine.py
+@@ -16,6 +16,9 @@
+ 
+     def __init__(self, model, **kwargs):
+         config_fields = {field.name for field in fields(Config)}
++        unknown = set(kwargs) - config_fields
++        if unknown:
++            raise ValueError(f"unknown engine options: {sorted(unknown)}")
+         config_kwargs = {k: v for k, v in kwargs.items() if k in config_fields}
+         config = Config(model, **config_kwargs)
+         Sequence.block_size = config.kvcache_block_size
+@@ -35,6 +38,8 @@
+         atexit.register(self.exit)
+ 
+     def exit(self):
++        if not hasattr(self, "model_runner"):
++            return
+         self.model_runner.call("exit")
+         del self.model_runner
+         for p in self.ps:
+--- a/nanovllm/engine/model_runner.py
++++ b/nanovllm/engine/model_runner.py
+@@ -22,6 +22,7 @@
+         self.world_size = config.tensor_parallel_size
+         self.rank = rank
+         self.event = event
++        self.decode_timings = []
+ 
+         dist.init_process_group("nccl", "tcp://localhost:2333", world_size=self.world_size, rank=rank)
+         torch.cuda.set_device(rank)
+@@ -33,6 +34,8 @@
+         self.sampler = Sampler()
+         self.warmup_model()
+         self.allocate_kv_cache()
++        from paged_decode.integration import configure_model
++        configure_model(self.model, config)
+         if not self.enforce_eager:
+             self.capture_cudagraph()
+         torch.set_default_device("cpu")
+@@ -112,6 +115,10 @@
+         block_bytes = 2 * hf_config.num_hidden_layers * self.block_size * num_kv_heads * head_dim * hf_config.dtype.itemsize
+         config.num_kvcache_blocks = int(total * config.gpu_memory_utilization - used - peak + current) // block_bytes
+         assert config.num_kvcache_blocks > 0
++        if config.kv_cache_blocks is not None:
++            if config.kv_cache_blocks > config.num_kvcache_blocks:
++                raise ValueError("requested KV pool exceeds measured available capacity")
++            config.num_kvcache_blocks = config.kv_cache_blocks
+         self.kv_cache = torch.empty(2, hf_config.num_hidden_layers, config.num_kvcache_blocks, self.block_size, num_kv_heads, head_dim)
+         layer_id = 0
+         for module in self.model.modules():
+@@ -194,6 +201,17 @@
+ 
+     @torch.inference_mode()
+     def run_model(self, input_ids: torch.Tensor, positions: torch.Tensor, is_prefill: bool):
++        if is_prefill or not self.config.record_decode_timings:
++            return self._run_model(input_ids, positions, is_prefill)
++        start, end = torch.cuda.Event(enable_timing=True), torch.cuda.Event(enable_timing=True)
++        start.record()
++        result = self._run_model(input_ids, positions, is_prefill)
++        end.record()
++        self.decode_timings.append((start, end, input_ids.size(0)))
++        return result
++
++    @torch.inference_mode()
++    def _run_model(self, input_ids: torch.Tensor, positions: torch.Tensor, is_prefill: bool):
+         if is_prefill or self.enforce_eager or input_ids.size(0) > 512:
+             return self.model.compute_logits(self.model(input_ids, positions))
+         else:
+@@ -231,7 +249,8 @@
+         context_lens = torch.zeros(max_bs, dtype=torch.int32)
+         block_tables = torch.zeros(max_bs, max_num_blocks, dtype=torch.int32)
+         outputs = torch.zeros(max_bs, hf_config.hidden_size)
+-        self.graph_bs = [1, 2, 4, 8] + list(range(16, max_bs + 1, 16))
++        self.graph_bs = sorted({b for b in [1, 2, 4, 8] + list(range(16, max_bs + 1, 16))
++                                if b <= max_bs} | {max_bs})
+         self.graphs = {}
+         self.graph_pool = None
+ 
+--- a/nanovllm/layers/attention.py
++++ b/nanovllm/layers/attention.py
+@@ -55,6 +55,8 @@
+         self.scale = scale
+         self.num_kv_heads = num_kv_heads
+         self.k_cache = self.v_cache = torch.tensor([])
++        self.decode_backend = "flash_attn"
++        self.decode_resources = None
+ 
+     def forward(self, q: torch.Tensor, k: torch.Tensor, v: torch.Tensor):
+         context = get_context()
+@@ -68,6 +70,11 @@
+                                        max_seqlen_q=context.max_seqlen_q, cu_seqlens_q=context.cu_seqlens_q,
+                                        max_seqlen_k=context.max_seqlen_k, cu_seqlens_k=context.cu_seqlens_k,
+                                        softmax_scale=self.scale, causal=True, block_table=context.block_tables)
++        elif self.decode_backend != "flash_attn":
++            from paged_decode.runtime import paged_decode
++            o = paged_decode(q, k_cache, v_cache, context.block_tables, context.context_lens,
++                             resources=self.decode_resources, backend=self.decode_backend,
++                             scale=self.scale).unsqueeze(1)
+         else:    # decode
+             o = flash_attn_with_kvcache(q.unsqueeze(1), k_cache, v_cache,
+                                         cache_seqlens=context.context_lens, block_table=context.block_tables, 
+--- a/nanovllm/layers/sampler.py
++++ b/nanovllm/layers/sampler.py
+@@ -6,7 +6,9 @@
+ 
+     @torch.compile
+     def forward(self, logits: torch.Tensor, temperatures: torch.Tensor):
+-        logits = logits.float().div_(temperatures.unsqueeze(dim=1))
++        greedy = logits.argmax(dim=-1)
++        safe_temperatures = torch.where(temperatures > 0, temperatures, 1.)
++        logits = logits.float() / safe_temperatures.unsqueeze(dim=1)
+         probs = torch.softmax(logits, dim=-1)
+         sample_tokens = probs.div_(torch.empty_like(probs).exponential_(1).clamp_min_(1e-10)).argmax(dim=-1)
+-        return sample_tokens
++        return torch.where(temperatures == 0, greedy, sample_tokens)
+--- a/nanovllm/sampling_params.py
++++ b/nanovllm/sampling_params.py
+@@ -1,4 +1,5 @@
+ from dataclasses import dataclass
++import math
+ 
+ 
+ @dataclass(slots=True)
+@@ -8,4 +9,7 @@
+     ignore_eos: bool = False
+ 
+     def __post_init__(self):
+-        assert self.temperature > 1e-10, "greedy sampling is not permitted"
++        if not math.isfinite(self.temperature) or self.temperature < 0:
++            raise ValueError("temperature must be finite and nonnegative")
++        if self.max_tokens <= 0:
++            raise ValueError("max_tokens must be positive")

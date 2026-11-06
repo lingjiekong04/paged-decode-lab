@@ -1,0 +1,10 @@
+[
+  "Explain why a GPU can be memory bound during autoregressive decoding.",
+  "Give a short example of logical pages mapping to physical KV cache blocks.",
+  "Write a Python function that computes a numerically stable softmax.",
+  "Compare prefill and decode attention in three sentences.",
+  "What are the responsibilities of a CUDA thread block?",
+  "Explain why splitting a reduction can add overhead.",
+  "Describe how CUDA Graph replay uses fixed memory addresses.",
+  "Explain grouped query attention with eight query heads and two KV heads."
+]

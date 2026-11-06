@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paged-decode-lab"
+version = "0.1.0"
+description = "Triton paged decode attention and pinned nano-vLLM integration"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+test = ["numpy>=1.24", "pytest>=8"]
+report = ["matplotlib>=3.8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "vendor/nano-vllm"]
+testpaths = ["tests"]
+markers = ["gpu: requires Linux CUDA, PyTorch, and Triton"]

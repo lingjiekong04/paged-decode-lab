@@ -1,0 +1,101 @@
+{
+  "powershell": "5.1 actual execution",
+  "positive_cases": [
+    "clean full copy including Chinese PDF",
+    "14-file interrupted resume read-only preflight",
+    "interrupted resume full copy"
+  ],
+  "negative_cases": [
+    "unrecognized user file preserved",
+    "edited release file preserved",
+    "invalid source rejected before clone"
+  ],
+  "current_user_checkout": "read-only validation: 14 files matched; no files/config/staging changed",
+  "core_sources_changed": false,
+  "gpu_run": false,
+  "network_clone": false,
+  "git_commit": false,
+  "git_push": false,
+  "records": [
+    {
+      "name": "powershell-version",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "21422c9c0c7f64853d26c1b033586145d7d9a49471b5bad8dc99e542fa3acd07"
+    },
+    {
+      "name": "clean-init",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ps51-clean-copy",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "b3a9b6b2c2dab0367aa850b54edba4dfb87675705c47e8193739d6b01d863865"
+    },
+    {
+      "name": "clean-tracked-status",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "resume-init",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ps51-resume-preflight",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "79496b622155c93989f804f1eed87528994ab1fd8737add2a650d4e768de045b"
+    },
+    {
+      "name": "ps51-resume-copy",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "dc3b014d87f4f81472e9bb8609d06b7e8843b9a7ec3bd261e591f2121aa84fda"
+    },
+    {
+      "name": "resume-tracked-status",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "extra-init",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ps51-extra-file-rejected",
+      "exit_code": 1,
+      "expected_success": false,
+      "log_sha256": "e074a02976970ca022215d633c3d2e452e374e5bcb7f5a660df3272feb98710c"
+    },
+    {
+      "name": "edited-init",
+      "exit_code": 0,
+      "expected_success": true,
+      "log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "ps51-user-edit-rejected",
+      "exit_code": 1,
+      "expected_success": false,
+      "log_sha256": "971a7a3bf7567e00c2d7cd7621a401a74946bd6651904b5480a36338824c7b78"
+    },
+    {
+      "name": "ps51-bad-source-preflight",
+      "exit_code": 1,
+      "expected_success": false,
+      "log_sha256": "ca6a400a3d3d436d04b1809f1dd4e7db10028386e94eb8c72fe41675440d2899"
+    }
+  ],
+  "tested_upload_script_sha256": "41257bd9f198997d5a20fe30ff5089d579e1e0a94f6ae55f3b2b7f05e382d261",
+  "powershell_version": "5.1.26100.9711"
+}
